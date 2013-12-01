@@ -1,3 +1,4 @@
 [
- { "command": "emoticode_search_selection", "caption": "Search on EmotiCODE" }
+ { "command": "emoticode_search_selection", "caption": "Search on EmotiCODE" },
+ { "command": "emoticode_submit_selection", "caption": "Submit to EmotiCODE" },
 ]

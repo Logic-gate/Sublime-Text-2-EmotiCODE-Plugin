@@ -3,8 +3,9 @@
 A plugin to search on [EmotiCODE](http://www.emoticode.net) .
 
 # How to Submit A Snippet
-***Tested on ST3*** 
-```emoticode.ini```  
+***Tested on ST3***   
+
+edit `emoticode.ini` 
 
 ```
 [CREDS]
@@ -21,7 +22,9 @@ title =
 description = 
 language =
 ```
-***
+
+***  
+
 > You will need to select ```Input Metadata``` before you ```Submit to EmotiCODE```  
 
 ![Alt text](http://sysbase.org/preview.png "Optional title")

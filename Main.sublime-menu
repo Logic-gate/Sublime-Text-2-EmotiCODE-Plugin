@@ -6,9 +6,9 @@
         "children":
         [
             {
-                "caption": "EmotiCODE-Submit",
+                "caption": "EmotiCODE-Test",
                 "mnemonic": "e",
-                "id": "emoticode-submit",
+                "id": "emoticode-test",
                 "children":
                 [
                     {
@@ -18,10 +18,6 @@
                     {
                         "command": "emoticode_search_input",
                         "caption": "Search From Input"
-                    },
-                    {
-                        "command": "emoticode_submit_selection",
-                        "caption": "Submit Selection"
                     },
                     {
                         "command": "emoticode_submit_input_data",

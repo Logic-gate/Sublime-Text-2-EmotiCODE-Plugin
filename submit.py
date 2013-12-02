@@ -115,7 +115,7 @@ def getUserInput():
 			sys.exit('\nExit')
 
 
-def submit(title, desc, lang, code, username, password):
+def submit(title, desc, lang, code, username, password, private):
 	myBrowser = mechanize.Browser()
 	myBrowser.set_handle_robots(False)
 	myBrowser.open('http://www.emoticode.net/sign_in')
@@ -129,7 +129,12 @@ def submit(title, desc, lang, code, username, password):
 	myBrowser['source[language_id]'] = [lang]
 	myBrowser['source[title]'] = title
 	myBrowser['source[text]'] = str(code)
-	myBrowser.submit()
+	if private == 'y':
+		for i in range(0, len(myBrowser.find_control(type="checkbox").items)):
+			myBrowser.find_control(type="checkbox").items[i].selected =True
+		myBrowser.submit()
+	else:
+		myBrowser.submit()
 
 if __name__ == '__main__':
 	par = argparse.ArgumentParser(prog=__file__, formatter_class=argparse.ArgumentDefaultsHelpFormatter, 
@@ -140,6 +145,7 @@ if __name__ == '__main__':
 	par.add_argument('-s',  required=False, help="Snippet | path", metavar='Snippet')
 	par.add_argument('-u',  required=True, help="Username", metavar='username')
 	par.add_argument('-p',  required=True, help="Password", metavar='password')
+	par.add_argument('-pr', help="Private | y | default: no", metavar='private')
 	
 	argvs = par.parse_args()
 	if len(sys.argv) == 1:
@@ -153,6 +159,7 @@ if __name__ == '__main__':
 		desc = argvs.d
 		username = argvs.u
 		password = argvs.p
+		private = argvs.pr
 		if argvs.l is not None:
 			lang = argvs.l
 		else:
@@ -161,7 +168,7 @@ if __name__ == '__main__':
 			code = open(argvs.s).read()
 		else:
 			raise 'Snippet must be stated'
-		submit(title, desc, lang, code, username, password)
+		submit(title, desc, lang, code, username, password, private)
 		#print title, desc, lang, code
 
 	

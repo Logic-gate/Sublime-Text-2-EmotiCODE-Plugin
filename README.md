@@ -1,6 +1,6 @@
 # Sublime Text 2 EmotiCODE Plugin
 
-A plugin to search on [EmotiCODE](http://www.emoticode.net) .
+A plugin to search and **Submit** on [EmotiCODE](http://www.emoticode.net) .
 
 # How to Submit A Snippet
 ***Tested on ST3***   

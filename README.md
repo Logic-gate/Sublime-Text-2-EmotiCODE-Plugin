@@ -21,8 +21,10 @@ python_path = /usr/bin/env python
 title = 
 description = 
 language =
+private = 
 ```
 
+**Added private option:** When prompted; ``y`` for private, anything else is not.
 ***  
 
 > You will need to select ```Input Metadata``` before you ```Submit to EmotiCODE```  

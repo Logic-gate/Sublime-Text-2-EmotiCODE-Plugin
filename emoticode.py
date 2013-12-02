@@ -5,7 +5,6 @@ import configparser
 import os
 
 p = str(os.path.dirname(os.path.abspath(__file__)))
-
 def PerformSearch(text):
   if len(text):
     url = 'http://www.emoticode.net/search/' +  text.replace(' ','%20')
@@ -31,7 +30,8 @@ def readConfig():
   title = config.get("VAR", "title")
   desc = config.get("VAR", "description")
   lang = config.get("VAR", "language")
-  return username, password, cache, script, python, title, desc, lang
+  private = config.get("VAR", "private")
+  return username, password, cache, script, python, title, desc, lang, private
 
 
 class EmoticodeSearchSelectionCommand(sublime_plugin.TextCommand):
@@ -67,10 +67,14 @@ class EmoticodeSubmitInputDataCommand(sublime_plugin.WindowCommand):
         self.window.show_input_panel('Description', '', self.lang, self.on_change, self.on_cancel)
     def lang(self, input):
         writeConfig('description', input)
-        self.window.show_input_panel('Language', '', self.on_done, self.on_change, self.on_cancel)
+        self.window.show_input_panel('Language', '', self.private, self.on_change, self.on_cancel)
+
+    def private(self, input):
+        writeConfig('language', input)
+        self.window.show_input_panel('Private', '', self.on_done, self.on_change, self.on_cancel)
 
     def on_done(self, input):
-        writeConfig('language', input)
+        writeConfig('private', input)
         submit()
     def on_change(self, input):
         pass
@@ -94,11 +98,19 @@ class EmoticodeSubmitSelectionCommand(sublime_plugin.TextCommand):
       title = readConfig()[5]
       desc = readConfig()[6]
       lang = readConfig()[7]
-      print(python_path+' '+script+' -u '+username+' -p '+password+' -d '+desc+' -t '+title+ ' -l '+lang+' -s '+cache)
+      private = readConfig()[8]
+      if private == 'y':
+        print(python_path+' '+script+' -u '+username+' -p '+password+' -d '+desc+' -t '+title+ ' -l '+lang+' -s '+cache+' -pr '+private)
+        p = open(cache, 'w+')
+        p.write(text)
+        p.close()
+        os.system(python_path+' '+script+' -u '+username+' -p '+password+' -d '+"'"+desc+"'"+' -t '+"'"+title+"'"+' -l '+lang+' -s '+cache+' -pr '+private)
+      else:
+        p = open(cache, 'w+')
+        p.write(text)
+        p.close()
+        os.system(python_path+' '+script+' -u '+username+' -p '+password+' -d '+"'"+desc+"'"+' -t '+"'"+title+"'"+' -l '+lang+' -s '+cache)
 
-      p = open(cache, 'w+')
-      p.write(text)
-      p.close()
-      os.system(python_path+' '+script+' -u '+username+' -p '+password+' -d '+"'"+desc+"'"+' -t '+"'"+title+"'"+' -l '+lang+' -s '+cache)
+      
 
      
